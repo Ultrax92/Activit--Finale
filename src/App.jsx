@@ -17,7 +17,10 @@ import { selectComments } from "./redux/selectors";
 import "./App.css";
 
 const schema = yup.object().shape({
-  comment: yup.string().required("Le commentaire est obligatoire").max(500),
+  comment: yup
+    .string()
+    .required("Veuillez rédiger un commentaire sur le film")
+    .max(500),
   note: yup
     .mixed()
     .oneOf(["1", "2", "3", "4", "5"], "Veuillez sélectionner une note")
@@ -80,7 +83,7 @@ function App() {
   return (
     <Container className="my-4">
       <Row className="justify-content-center">
-        <Col md={8} lg={6} xl={5}>
+        <Col md={8} lg={6}>
           {movie && (
             <Card className="mb-4">
               <Card.Img
@@ -134,28 +137,14 @@ function App() {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="acceptConditions">
-              <div
-                className={`form-check ${
-                  errors.acceptConditions ? "is-invalid" : ""
-                }`}
-              >
-                <input
-                  type="checkbox"
-                  className={`form-check-input ${
-                    errors.acceptConditions ? "is-invalid" : ""
-                  }`}
-                  id="acceptConditions"
-                  {...register("acceptConditions")}
-                />
-                <label className="form-check-label" htmlFor="acceptConditions">
-                  J'accepte les conditions générales
-                </label>
-                {errors.acceptConditions && (
-                  <div className="invalid-feedback">
-                    {errors.acceptConditions.message}
-                  </div>
-                )}
-              </div>
+              <Form.Check
+                type="checkbox"
+                label="J'accepte les conditions générales"
+                {...register("acceptConditions")}
+                isInvalid={!!errors.acceptConditions}
+                feedback={errors.acceptConditions?.message}
+                feedbackType="invalid"
+              />
             </Form.Group>
 
             <Button type="submit">Ajouter</Button>

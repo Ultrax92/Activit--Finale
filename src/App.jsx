@@ -13,7 +13,6 @@ import {
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { addComment, deleteComment } from "./redux/commentSlice";
-import { selectComments } from "./redux/selectors";
 import "./App.css";
 
 const schema = yup.object().shape({
@@ -35,7 +34,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
-  const comments = useSelector(selectComments);
+  const comments = useSelector((state) => state.comments);
 
   const {
     register,

@@ -19,7 +19,7 @@ const schema = yup.object().shape({
   comment: yup
     .string()
     .required("Veuillez rédiger un commentaire sur le film")
-    .max(500),
+    .max(500, "Le commentaire ne peut pas dépasser 500 caractères"),
   note: yup
     .mixed()
     .oneOf(["1", "2", "3", "4", "5"], "Veuillez sélectionner une note")
